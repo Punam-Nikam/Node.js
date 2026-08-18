@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Express HTTP Methods</title>
+
+</head>
+
+<body>
+
+    <h1>Express.js HTTP Methods</h1>
+
+
+    <!-- ================= GET ================= -->
+
+    <h2>1. GET - Read Students</h2>
+
+    <button onclick="getStudents()">
+        Get All Students
+    </button>
+
+
+    <hr>
+
+
+    <!-- ================= POST ================= -->
+
+    <h2>2. POST - Add Student</h2>
+
+    <input
+        type="number"
+        id="postId"
+        placeholder="ID"
+    >
+
+    <input
+        type="text"
+        id="postName"
+        placeholder="Name"
+    >
+
+    <input
+        type="text"
+        id="postCourse"
+        placeholder="Course"
+    >
+
+    <input
+        type="number"
+        id="postAge"
+        placeholder="Age"
+    >
+
+    <button onclick="addStudent()">
+        Add Student
+    </button>
+
+
+    <hr>
+
+
+    <!-- ================= PUT ================= -->
+
+    <h2>3. PUT - Complete Update</h2>
+
+    <input
+        type="number"
+        id="putId"
+        placeholder="Student ID"
+    >
+
+    <input
+        type="text"
+        id="putName"
+        placeholder="New Name"
+    >
+
+    <input
+        type="text"
+        id="putCourse"
+        placeholder="New Course"
+    >
+
+    <input
+        type="number"
+        id="putAge"
+        placeholder="New Age"
+    >
+
+    <button onclick="updateStudent()">
+        Update Student
+    </button>
+
+
+    <hr>
+
+
+    <!-- ================= PATCH ================= -->
+
+    <h2>4. PATCH - Partial Update</h2>
+
+    <input
+        type="number"
+        id="patchId"
+        placeholder="Student ID"
+    >
+
+    <input
+        type="text"
+        id="patchName"
+        placeholder="New Name"
+    >
+
+    <input
+        type="text"
+        id="patchCourse"
+        placeholder="New Course"
+    >
+
+    <input
+        type="number"
+        id="patchAge"
+        placeholder="New Age"
+    >
+
+    <button onclick="patchStudent()">
+        Partially Update
+    </button>
+
+
+    <hr>
+
+
+    <!-- ================= DELETE ================= -->
+
+    <h2>5. DELETE - Delete Student</h2>
+
+    <input
+        type="number"
+        id="deleteId"
+        placeholder="Student ID"
+    >
+
+    <button onclick="deleteStudent()">
+        Delete Student
+    </button>
+
+
+    <hr>
+
+
+    <h2>Server Response</h2>
+
+    <pre id="result"></pre> //pre tag is used to display the server response in a formatted way.
+
+
+    <script>
+
+
+        // ==================================================
+        // GET
+        // ==================================================
+
+        function getStudents() {
+
+            fetch("/students")
+
+                .then(function(response) {
+
+                    return response.json();
+
+                })
+
+                .then(function(data) {
+
+                    document.getElementById("result").textContent =
+                        JSON.stringify(data, null, 4);
+
+                });
+
+        }
+
+
+        // ==================================================
+        // POST
+        // ==================================================
+
+        function addStudent() {
+
+            const student = {
+
+                id: Number(
+                    document.getElementById("postId").value
+                ),
+
+                name:
+                    document.getElementById("postName").value,
+
+                course:
+                    document.getElementById("postCourse").value,
+
+                age: Number(
+                    document.getElementById("postAge").value
+                )
+
+            };
+
+            //fetch() is a JavaScript function used to make an HTTP request.
+            fetch("/student", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(student)
+            //JSON.stringify() converts the JavaScript object into a JSON string:
+            })
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                document.getElementById("result").textContent =
+                    JSON.stringify(data, null, 4);
+
+            });
+
+        }
+
+
+        // ==================================================
+        // PUT
+        // ==================================================
+
+        function updateStudent() {
+
+            const id =
+                document.getElementById("putId").value;
+
+
+            const student = {
+
+                name:
+                    document.getElementById("putName").value,
+
+                course:
+                    document.getElementById("putCourse").value,
+
+                age: Number(
+                    document.getElementById("putAge").value
+                )
+
+            };
+
+
+            fetch("/student/" + id, {
+
+                method: "PUT",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(student)
+
+            })
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                document.getElementById("result").textContent =
+                    JSON.stringify(data, null, 4);
+
+            });
+
+        }
+
+
+        // ==================================================
+        // PATCH
+        // ==================================================
+
+        function patchStudent() {
+
+            const id =
+                document.getElementById("patchId").value;
+
+
+            const student = {};
+
+
+            const name =
+                document.getElementById("patchName").value;
+
+            const course =
+                document.getElementById("patchCourse").value;
+
+            const age =
+                document.getElementById("patchAge").value;
+
+
+            if (name !== "") {
+
+                student.name = name;
+
+            }
+
+
+            if (course !== "") {
+
+                student.course = course;
+
+            }
+
+
+            if (age !== "") {
+
+                student.age = Number(age);
+
+            }
+
+
+            fetch("/student/" + id, {
+
+                method: "PATCH",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(student)
+
+            })
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                document.getElementById("result").textContent =
+                    JSON.stringify(data, null, 4);
+
+            });
+
+        }
+
+
+        // ==================================================
+        // DELETE
+        // ==================================================
+
+        function deleteStudent() {
+
+            const id =
+                document.getElementById("deleteId").value;
+
+
+            fetch("/student/" + id, {
+
+                method: "DELETE"
+
+            })
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                document.getElementById("result").textContent =
+                    JSON.stringify(data, null, 4);
+
+            });
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+// Chaining asynchronous operations using Promise
+
+//the next .then() executes immediately because it doesn't know it should wait for next file
+// So always return the Promise when chaining asynchronous operations.
+
+var fs= require("fs").promises;
+
+fs.readFile("readfile.txt", "utf8")
+.then(function(data1){
+    console.log(data1);
+    return fs.readFile("new.txt", "utf8");
+})
+.then(function(data2){
+    console.log(data2);
+    return fs.readFile("newfile.txt", "utf8");
+})
+.then(function(data3){
+    console.log(data3);
+})
+.catch(function(err){
+    console.log(err);
+});
+
+//this chaining means that the next .then() will wait for the previous Promise to resolve before executing.

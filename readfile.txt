@@ -1,0 +1,3 @@
+Hello, this is a sample text file.
+this is demontsration for something concepts of streams and chunks
+so we will use this file for the chunk program 

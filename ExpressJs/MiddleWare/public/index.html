@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Student data</h2>
+    <input
+        type="text"
+        id="postName"
+        placeholder="Name"
+    >
+
+    <input
+        type="text"
+        id="postCourse"
+        placeholder="Course"
+    >
+    <button onclick="addStudent()">
+       Add student
+    </button>
+
+    <script>
+            function addStudent() {
+
+            const student = {
+
+     
+                name:
+                    document.getElementById("postName").value,
+
+                course:
+                    document.getElementById("postCourse").value
+
+            };
+
+            //fetch() is a JavaScript function used to make an HTTP request.
+            fetch("/student", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(student)
+            //JSON.stringify() converts the JavaScript object into a JSON string:
+            })
+
+            .then(function(response) {
+
+             response.send(req.body);
+                
+            })
+
+            .then(function(data) {
+
+                document.getElementById("result").textContent =
+                    JSON.stringify(data, null, 4);
+
+            });
+
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+Q.1. develope a node js application demonstrating core modules (fs,path,os,http) custom modules , file system operations, asynchronous programming ( reading and writing in file), and http server implementation.
+
