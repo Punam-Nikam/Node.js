@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>CORS Without CORS</title>
+
+</head>
+
+<body>
+
+    <h1>CORS Example - Without CORS</h1>
+
+    <button onclick="getStudents()">
+        Get Students
+    </button>
+
+    <div id="result"></div>
+
+
+    <script>
+
+        async function getStudents() {
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/students"
+                );
+
+                const students =
+                    await response.json();
+
+                let output = "";
+
+                students.forEach(function(student) {
+
+                    output +=
+                        "<p>" +
+                        student.id +
+                        " - " +
+                        student.name +
+                        " - " +
+                        student.course +
+                        "</p>";
+
+                });
+
+                document.getElementById("result")
+                    .innerHTML = output;
+
+            }
+            catch (error) {
+
+                document.getElementById("result")
+                    .innerText =
+                    "Error: " + error.message;
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
