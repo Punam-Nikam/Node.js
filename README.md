@@ -38,7 +38,11 @@ Because this repository contains multiple mini-projects, navigate into the speci
 2. Install dependencies:
    ```bash
    npm install
-3. run the server
-  node server.js
-  # or
-  npm run dev
+3. run the server :
+    ```bash
+   node server.js
+    
+   or
+    ```bash
+   npm run dev
+   for react.js projects
