@@ -40,9 +40,7 @@ Because this repository contains multiple mini-projects, navigate into the speci
    npm install
 3. run the server :
     ```bash
-   node server.js
-    
-   or
-    ```bash
+   node server.js.
+ or for react.js projects : 
+  ```bash
    npm run dev
-   for react.js projects
